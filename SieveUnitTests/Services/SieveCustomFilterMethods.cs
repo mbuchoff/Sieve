@@ -54,6 +54,13 @@ namespace SieveUnitTests.Services
             return result;
         }
 
+        public static IQueryable<IPost> HasInTitleStatic(IQueryable<Post> source, string op, string[] values)
+        {
+            var result = source.Where(p => p.Title.Contains(values[0]));
+
+            return result;
+        }
+
         public IQueryable<IComment> IsNew(IQueryable<IComment> source, string op, string[] values)
         {
             var result = source.Where(c => c.DateCreated > DateTimeOffset.UtcNow.AddDays(-2));

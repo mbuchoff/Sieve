@@ -436,8 +436,8 @@ namespace Sieve.Services
             var customMethod = parent?.GetType()
                 .GetMethodExt(name,
                     Options.Value.CaseSensitive
-                        ? BindingFlags.Default
-                        : BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance,
+                        ? BindingFlags.Default | BindingFlags.Static
+                        : BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static,
                     typeof(IQueryable<TEntity>));
 
 

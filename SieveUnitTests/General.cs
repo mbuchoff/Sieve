@@ -847,6 +847,30 @@ namespace SieveUnitTests
             Assert.NotNull(entry);
             Assert.Equal(1, resultCount);
         }
-        
+
+        [Theory]
+        [InlineData(@"HasInTitleStatic@=Tale", 1)]
+        [InlineData(@"HasInTitleStatic@=Tail", 0)]
+        public void CanFilterWithStaticFilters(string filter, int expectedMatches)
+        {
+            var posts = new List<Post>
+            {
+                new()
+                {
+                    Id = 1,
+                    Title = "A Tale of Two Cities",
+                }
+            }.AsQueryable();
+
+            var model = new SieveModel
+            {
+                Filters = filter
+            };
+
+            var result = _processor.Apply(model, posts);
+            var resultCount = result.Count();
+            Assert.Equal(expectedMatches, resultCount);
+        }
+
     }
 }
